@@ -1,21 +1,49 @@
 import React, { Component } from "react";
-import logo from "../logo.svg";
 import "../styles/App.css";
+import { connect } from "react-redux";
+import { updateSearchQuery, searchPhotos } from "../actions/splashActions";
+
+import List from "./List";
 
 class App extends Component {
   render() {
+    console.log("images", this.props.images);
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            this.props.searchPhotos();
+          }}
+        >
+          <input
+            type="text"
+            placeholder="image search"
+            onChange={e => this.props.updateSearchQuery(e)}
+          />
+        </form>
+        <h3>
+          {this.props.query}
+        </h3>
+        <List images={this.props.images} />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  console.log("state: ", state);
+  return {
+    query: state.splash.query,
+    images: state.splash.images
+  };
+};
+
+const mapDispatchToProps = () => {
+  return {
+    updateSearchQuery,
+    searchPhotos
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
