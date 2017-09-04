@@ -10,6 +10,7 @@ class App extends Component {
     console.log("images", this.props.images);
     return (
       <div className="App">
+        <h1>Unsplash API Portal // Find something beautiful.</h1>
         <form
           onSubmit={e => {
             e.preventDefault();
@@ -18,13 +19,11 @@ class App extends Component {
         >
           <input
             type="text"
-            placeholder="image search"
+            placeholder="search database"
             onChange={e => this.props.updateSearchQuery(e)}
           />
         </form>
-        <h3>
-          {this.props.query}
-        </h3>
+        <h3>{this.props.query}</h3>
         <List images={this.props.images} />
       </div>
     );
