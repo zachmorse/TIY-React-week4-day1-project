@@ -7,7 +7,6 @@ import List from "./List";
 
 class App extends Component {
   render() {
-    console.log("images", this.props.images);
     return (
       <div className="App">
         <h1>Unsplash API Portal // Find something beautiful.</h1>
@@ -17,11 +16,7 @@ class App extends Component {
             this.props.searchPhotos();
           }}
         >
-          <input
-            type="text"
-            placeholder="search database"
-            onChange={e => this.props.updateSearchQuery(e)}
-          />
+          <input type="text" placeholder="search database" onChange={e => this.props.updateSearchQuery(e)} />
         </form>
         <h3>{this.props.query}</h3>
         <List images={this.props.images} />
@@ -30,8 +25,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log("state: ", state);
+const mapStateToProps = state => {
   return {
     query: state.splash.query,
     images: state.splash.images
@@ -45,4 +39,7 @@ const mapDispatchToProps = () => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
