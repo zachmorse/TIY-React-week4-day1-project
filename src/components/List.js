@@ -1,29 +1,20 @@
-import React, { Component } from "react";
+import React from 'react'
 
-class List extends Component {
-  render() {
-    let imgList = this.props.images.map((image, index) => {
-      return (
-        <div key={index}>
-          <img
-            src={image.urls.regular}
-            alt=""
-            style={{ boxShadow: "grey 1px 1px 2px" }}
-          />
-        </div>
-      );
-    });
-
-    return (
-      <div>
-        {imgList.length ? (
-          imgList
+const List = ({ images }) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        {images.length ? (
+            images.map((image, idx) => (
+                <img
+                    key={idx}
+                    src={image.urls.regular}
+                    alt={image.alt_description}
+                    style={{ boxShadow: 'grey 1px 1px 2px', width: '100%', maxWidth: '70vw', margin: 'auto' }}
+                />
+            ))
         ) : (
-          "Enter a search above, and hit enter to begin."
+            <div>Enter a search above, and hit enter to begin.</div>
         )}
-      </div>
-    );
-  }
-}
+    </div>
+)
 
-export default List;
+export default List
