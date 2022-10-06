@@ -1,16 +1,14 @@
 {
-  "name": "unsplash-api",
-  "version": "0.1.0",
+  "name": "minimal-unsplash",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.16.2",
-    "lodash": "^4.17.11",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-redux": "^5.0.5",
-    "react-scripts": "^2.1.5",
-    "redux": "^3.7.2",
-    "redux-logger": "^3.0.6",
+    "axios": "^1.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.4",
+    "react-scripts": "^5.0.1",
+    "redux": "^4.2.0",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
