@@ -1,4 +1,3 @@
-import store from '../store'
 import axios from 'axios'
 import { UPDATE_QUERY, SEARCH_PHOTOS } from './actionTypes'
 
@@ -10,8 +9,9 @@ export const updateQuery = query => ({
     payload: query,
 })
 
-export const searchPhotos = () => async dispatch => {
-    const searchQuery = store.getState().search.query
-    const requestURL = `${BASE_URL}?query=${searchQuery}&client_id=${CLIENT_ID}`
-    axios.get(requestURL).then(response => dispatch({ type: SEARCH_PHOTOS, payload: response.data.results }))
+export const searchPhotos = query => async dispatch => {
+    const requestURL = `${BASE_URL}?query=${query}&client_id=${CLIENT_ID}`
+    axios
+        .get(requestURL)
+        .then(response => dispatch({ type: SEARCH_PHOTOS, payload: { images: response.data.results, query: query } }))
 }
