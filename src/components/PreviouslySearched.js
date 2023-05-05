@@ -1,17 +1,15 @@
 import React from 'react'
 
 const PreviouslySearched = ({ previouslySearched, searchPhotos }) => {
-    return (
+    return previouslySearched.length >= 1 ? (
         <div>
-            {previouslySearched.length >= 1
-                ? previouslySearched.map((x, idx) => (
-                      <div key={idx} onClick={() => searchPhotos(x)}>
-                          {x}
-                      </div>
-                  ))
-                : null}
+            {previouslySearched.map((x, idx) => (
+                <div key={idx} onClick={() => searchPhotos(x)}>
+                    {x}
+                </div>
+            ))}
         </div>
-    )
+    ) : null
 }
 
 export default PreviouslySearched

@@ -1,9 +1,10 @@
-import { UPDATE_QUERY, SEARCH_PHOTOS } from '../actions/actionTypes'
+import { UPDATE_QUERY, SEARCH_PHOTOS, RETRIEVE_MORE_PHOTOS } from '../actions/actionTypes'
 
 const initialState = {
     query: '',
     images: [],
     previouslySearched: [],
+    isInitialSearch: true,
 }
 
 const searchReducer = (state = initialState, action) => {
@@ -18,7 +19,11 @@ const searchReducer = (state = initialState, action) => {
                 previouslySearched: state.previouslySearched.includes(action.payload.query)
                     ? state.previouslySearched
                     : [...state.previouslySearched, action.payload.query],
+                isInitialSearch: false,
             }
+        case RETRIEVE_MORE_PHOTOS:
+            console.log('reducer?', action.payload)
+            return { ...state, images: [...state.images, ...action.payload.images] }
         default:
             return state
     }

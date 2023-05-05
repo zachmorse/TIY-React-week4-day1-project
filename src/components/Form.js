@@ -1,8 +1,10 @@
 import React from 'react'
+import '../styles/Form.css'
 
 const Form = ({ query, searchPhotos, updateQuery }) => {
     return (
         <form
+            className='form'
             onSubmit={e => {
                 e.preventDefault()
                 searchPhotos(query)
