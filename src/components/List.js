@@ -1,13 +1,8 @@
 import React from 'react'
 import { chunk } from 'lodash'
-import { useMediaQuery } from 'react-responsive'
 import '../styles/List.css'
 
-const List = ({ images }) => {
-    const tripleColumn = useMediaQuery({ query: '(min-width: 1201px)' })
-    const doubleColumn = useMediaQuery({ query: '(max-width: 1200px)' })
-    const columns = tripleColumn ? 3 : doubleColumn ? 2 : 1
-
+const List = ({ images, columns }) => {
     const sortedColumnsArray = chunk(images, Math.ceil(images.length / columns))
 
     return images.length ? (

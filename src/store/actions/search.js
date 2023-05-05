@@ -17,10 +17,8 @@ export const searchPhotos = query => async dispatch => {
 }
 
 export const retrieveMorePhotos = query => async dispatch => {
-    console.log('query?', query)
     const requestURL = `${BASE_URL}?query=${query}&client_id=${CLIENT_ID}&orientation=${ORIENTATION}&page=${2}&per_page=${RESULTS_PER_PAGE}`
     axios.get(requestURL).then(response => {
-        console.log('response?', response)
         dispatch({ type: RETRIEVE_MORE_PHOTOS, payload: { images: response.data.results } })
     })
 }
