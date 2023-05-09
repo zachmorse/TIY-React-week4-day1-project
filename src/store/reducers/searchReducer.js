@@ -5,6 +5,9 @@ const initialState = {
     images: [],
     previouslySearched: [],
     isInitialSearch: true,
+    page: 1,
+    orientation: 'landscape', // landscape, portrait, squarish
+    resultsPerPage: 30
 }
 
 const searchReducer = (state = initialState, action) => {
@@ -15,14 +18,14 @@ const searchReducer = (state = initialState, action) => {
             return {
                 ...state,
                 images: action.payload.images,
-                query: '',
                 previouslySearched: state.previouslySearched.includes(action.payload.query)
                     ? state.previouslySearched
                     : [...state.previouslySearched, action.payload.query],
                 isInitialSearch: false,
+                page: 1,
             }
         case RETRIEVE_MORE_PHOTOS:
-            return { ...state, images: [...state.images, ...action.payload.images] }
+            return { ...state, images: [...state.images, ...action.payload.images], page: state.page + 1 }
         default:
             return state
     }

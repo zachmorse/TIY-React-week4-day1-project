@@ -40,6 +40,7 @@ const App = ({
             )}
             {images.length ? (
                 <div
+                    style={{ margin: '2rem' }}
                     onClick={() => {
                         retrieveMorePhotos(previouslySearched[previouslySearched.length - 1])
                     }}>

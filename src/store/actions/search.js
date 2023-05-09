@@ -1,24 +1,36 @@
 import axios from 'axios'
+import store from '../store'
 import { UPDATE_QUERY, SEARCH_PHOTOS, RETRIEVE_MORE_PHOTOS } from './actionTypes'
 
-const BASE_URL = 'https://api.unsplash.com/search/photos'
-const CLIENT_ID = process.env.REACT_APP_UNSPLASH_CLIENT_ID
-const RESULTS_PER_PAGE = 30
-const ORIENTATION = 'landscape'
-const PAGE = 1
+export const BASE_URL = 'https://api.unsplash.com/search/photos'
+export const CLIENT_ID = process.env.REACT_APP_UNSPLASH_CLIENT_ID
+export const RESULTS_PER_PAGE = 30
+export const ORIENTATION = 'landscape'
+
+const buildURL = (query, orientation, resultsPerPage, page) =>
+    `${BASE_URL}?client_id=${CLIENT_ID}&query=${query}&orientation=${orientation}&per_page=${resultsPerPage}&page=${page}`
 
 export const updateQuery = query => ({ type: UPDATE_QUERY, payload: query })
 
 export const searchPhotos = query => async dispatch => {
-    const requestURL = `${BASE_URL}?query=${query}&client_id=${CLIENT_ID}&orientation=${ORIENTATION}&page=${PAGE}&per_page=${RESULTS_PER_PAGE}`
-    axios.get(requestURL).then(response => {
-        dispatch({ type: SEARCH_PHOTOS, payload: { images: response.data.results, query: query } })
-    })
+    const page = store.getState().search.page
+    const url = buildURL(query, ORIENTATION, RESULTS_PER_PAGE, page)
+    console.log('url:', url)
+    axios
+        .get(url)
+        .then(response => dispatch({ type: SEARCH_PHOTOS, payload: { images: response.data.results, query: query } }))
+        .catch(err => console.log(`ERROR: ${err}`))
 }
 
 export const retrieveMorePhotos = query => async dispatch => {
-    const requestURL = `${BASE_URL}?query=${query}&client_id=${CLIENT_ID}&orientation=${ORIENTATION}&page=${2}&per_page=${RESULTS_PER_PAGE}`
-    axios.get(requestURL).then(response => {
-        dispatch({ type: RETRIEVE_MORE_PHOTOS, payload: { images: response.data.results } })
-    })
+    const page = store.getState().search.page
+
+    const url = buildURL(query, ORIENTATION, RESULTS_PER_PAGE, page + 1)
+    console.log('url:', url)
+    axios
+        .get(url)
+        .then(response =>
+            dispatch({ type: RETRIEVE_MORE_PHOTOS, payload: { images: response.data.results, page: page + 1 } })
+        )
+        .catch(err => console.log(`ERROR: ${err}`))
 }
