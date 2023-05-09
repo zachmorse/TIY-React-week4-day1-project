@@ -5,7 +5,6 @@ import { UPDATE_QUERY, SEARCH_PHOTOS, RETRIEVE_MORE_PHOTOS } from './actionTypes
 export const BASE_URL = process.env.REACT_APP_UNSPLASH_BASE_URL
 export const CLIENT_ID = process.env.REACT_APP_UNSPLASH_CLIENT_ID
 
-
 const buildURL = (incrementPage = false) => {
     const query = store.getState().search.query
     const orientation = store.getState().search.orientation
@@ -22,7 +21,9 @@ export const updateQuery = query => ({ type: UPDATE_QUERY, payload: query })
 export const searchPhotos = query => async dispatch => {
     axios
         .get(buildURL())
-        .then(response => dispatch({ type: SEARCH_PHOTOS, payload: { images: response.data.results, query: query } }))
+        .then(response => {
+            dispatch({ type: SEARCH_PHOTOS, payload: { images: response.data.results, query: query } })
+        })
         .catch(err => console.log(`ERROR: ${err}`))
 }
 
