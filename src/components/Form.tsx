@@ -1,7 +1,13 @@
 import React from 'react'
 import '../styles/Form.css'
 
-const Form = ({ query, searchPhotos, updateQuery }) => {
+interface iForm {
+    query: string;
+    searchPhotos: (query: string) => void
+    updateQuery: (query: string) => void
+}
+
+const Form = ({ query, searchPhotos, updateQuery }: iForm) => {
     return (
         <form
             className='form'

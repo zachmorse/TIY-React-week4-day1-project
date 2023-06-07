@@ -1,6 +1,11 @@
 import React from 'react'
 
-const PreviouslySearched = ({ previouslySearched, searchPhotos }) => {
+interface iPreviouslySearched {
+    previouslySearched: string[]
+    searchPhotos: (query: string) => void
+}
+
+const PreviouslySearched = ({ previouslySearched, searchPhotos }: iPreviouslySearched) => {
     return previouslySearched.length >= 1 ? (
         <div>
             {previouslySearched.map((x, idx) => (
