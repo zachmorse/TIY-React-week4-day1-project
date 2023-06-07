@@ -21,7 +21,7 @@ const App = ({
     columns,
 }) => {
     const singleColumn = useMediaQuery({ query: '(max-width: 800px)' })
-    const doubleColumn = useMediaQuery({ query: '(max-width: 1200px)' })
+    const doubleColumn = useMediaQuery({ query: '(max-width: 1050px)' })
 
     useEffect(() => {
         const columns = singleColumn ? 1 : doubleColumn ? 2 : 3

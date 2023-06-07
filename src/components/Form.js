@@ -11,6 +11,7 @@ const Form = ({ query, searchPhotos, updateQuery }) => {
             }}>
             <input
                 type='text'
+                id='search'
                 placeholder='Search Unsplash'
                 value={query}
                 onChange={e => updateQuery(e.target.value)}

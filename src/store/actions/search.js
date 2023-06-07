@@ -5,8 +5,7 @@ import { UPDATE_QUERY, SEARCH_PHOTOS, RETRIEVE_MORE_PHOTOS } from './actionTypes
 export const BASE_URL = process.env.REACT_APP_UNSPLASH_BASE_URL
 export const CLIENT_ID = process.env.REACT_APP_UNSPLASH_CLIENT_ID
 
-const buildURL = (incrementPage = false) => {
-    const query = store.getState().search.query
+const buildURL = (query, incrementPage = false) => {
     const orientation = store.getState().search.orientation
     const resultsPerPage = store.getState().search.resultsPerPage
     const page = store.getState().search.page
@@ -19,18 +18,19 @@ const buildURL = (incrementPage = false) => {
 export const updateQuery = query => ({ type: UPDATE_QUERY, payload: query })
 
 export const searchPhotos = query => async dispatch => {
+    console.log('query:', query)
     axios
-        .get(buildURL())
-        .then(response => {
-            dispatch({ type: SEARCH_PHOTOS, payload: { images: response.data.results, query: query } })
-        })
+        .get(buildURL(query))
+        .then(response => dispatch({ type: SEARCH_PHOTOS, payload: { images: response.data.results, query: query } }))
         .catch(err => console.log(`ERROR: ${err}`))
 }
 
 export const retrieveMorePhotos = query => async dispatch => {
     const incrementPage = true
     axios
-        .get(buildURL(incrementPage))
-        .then(response => dispatch({ type: RETRIEVE_MORE_PHOTOS, payload: { images: response.data.results } }))
+        .get(buildURL(query, incrementPage))
+        .then(response =>
+            dispatch({ type: RETRIEVE_MORE_PHOTOS, payload: { images: response.data.results, query: query } })
+        )
         .catch(err => console.log(`ERROR: ${err}`))
 }

@@ -17,13 +17,13 @@
 
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1050px) {
     .list {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 800px) {
     .list {
         grid-template-columns: 1fr;
     }

@@ -24,7 +24,12 @@ const searchReducer = (state = initialState, action) => {
                 isInitialSearch: false,
             }
         case RETRIEVE_MORE_PHOTOS:
-            return { ...state, images: [...state.images, ...action.payload.images], page: state.page + 1 }
+            return {
+                ...state,
+                images: [...state.images, ...action.payload.images],
+                query: action.payload.query,
+                page: state.page + 1,
+            }
         default:
             return state
     }
