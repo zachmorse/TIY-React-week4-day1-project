@@ -7,7 +7,7 @@ const initialState = {
 const listReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_COLUMNS:
-            return { ...state, columns: 3 }
+            return { ...state, columns: action.payload }
         default:
             return state
     }
