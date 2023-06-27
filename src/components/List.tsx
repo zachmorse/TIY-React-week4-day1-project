@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import '../styles/List.css'
 
-const List = ({ images, columns }) => {
+interface iList {
+    images: object[]
+    columns: number
+}
+
+const List = ({ images, columns }: iList) => {
     const [sortedColumnsArray, setSortedColumnsArray] = useState([])
 
     // sort columns horizontally across columns while still breaking them up into columns
@@ -9,7 +14,7 @@ const List = ({ images, columns }) => {
     // rather than being spread across the columns in non-search order
     useEffect(() => {
         let iterator = 0
-        const sorted = images.reduce((acc, item) => {
+        const sorted = images.reduce((acc: any, item: object) => {
             if (iterator >= columns) {
                 iterator = 0
             }
@@ -26,9 +31,9 @@ const List = ({ images, columns }) => {
 
     return images.length ? (
         <div className='list'>
-            {sortedColumnsArray.map((group, groupIdx) => (
+            {sortedColumnsArray.map((group: any, groupIdx: number) => (
                 <div key={groupIdx} className='masonryColumn'>
-                    {group.map((image, imgIdx) => (
+                    {group.map((image: any, imgIdx: number) => (
                         <img key={imgIdx} src={image.urls.regular} alt={image.alt_description} className='image' />
                     ))}
                 </div>
