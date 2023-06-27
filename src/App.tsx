@@ -9,6 +9,18 @@ import Form from './components/Form'
 import PreviouslySearched from './components/PreviouslySearched'
 import './styles/App.css'
 
+interface iApp {
+    query: string
+    images: object[]
+    previouslySearched: string[]
+    updateQuery: (query: string) => void
+    searchPhotos: (query: string) => void
+    isInitialSearch: boolean
+    retrieveMorePhotos: (searchTerm: string) => void
+    updateColumns: (number: number) => void
+    columns: number
+}
+
 const App = ({
     query,
     images,
@@ -19,7 +31,7 @@ const App = ({
     retrieveMorePhotos,
     updateColumns,
     columns,
-}) => {
+}: iApp): JSX.Element => {
     const singleColumn = useMediaQuery({ query: '(max-width: 800px)' })
     const doubleColumn = useMediaQuery({ query: '(max-width: 1050px)' })
 
@@ -51,7 +63,7 @@ const App = ({
     )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
     query: state.search.query,
     images: state.search.images,
     previouslySearched: state.search.previouslySearched,
@@ -59,11 +71,11 @@ const mapStateToProps = state => ({
     columns: state.list.columns,
 })
 
-const mapDispatchToProps = dispatch => ({
-    updateQuery: queryString => dispatch(updateQuery(queryString)),
-    searchPhotos: query => dispatch(searchPhotos(query)),
-    retrieveMorePhotos: query => dispatch(retrieveMorePhotos(query)),
-    updateColumns: payload => dispatch(updateColumns(payload)),
+const mapDispatchToProps = (dispatch: any) => ({
+    updateQuery: (queryString: string) => dispatch(updateQuery(queryString)),
+    searchPhotos: (query: string) => dispatch(searchPhotos(query)),
+    retrieveMorePhotos: (query: string) => dispatch(retrieveMorePhotos(query)),
+    updateColumns: (payload: number) => dispatch(updateColumns(payload)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

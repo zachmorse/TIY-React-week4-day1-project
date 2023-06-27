@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../styles/List.css'
 
 interface iList {
-    images: any[]
+    images: object[]
     columns: number
 }
 
@@ -14,7 +14,7 @@ const List = ({ images, columns }: iList) => {
     // rather than being spread across the columns in non-search order
     useEffect(() => {
         let iterator = 0
-        const sorted = images.reduce((acc: any[], item: any) => {
+        const sorted = images.reduce((acc: any, item: object) => {
             if (iterator >= columns) {
                 iterator = 0
             }
@@ -26,7 +26,7 @@ const List = ({ images, columns }: iList) => {
             return acc
         }, [])
 
-        setSortedColumnsArray(sorted as any)
+        setSortedColumnsArray(sorted)
     }, [images, columns])
 
     return images.length ? (
