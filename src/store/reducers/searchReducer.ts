@@ -1,4 +1,4 @@
-import { UPDATE_QUERY, SEARCH_PHOTOS, RETRIEVE_MORE_PHOTOS } from '../actions/actionTypes'
+import { UPDATE_QUERY, SEARCH_PHOTOS, RETRIEVE_MORE_PHOTOS, REMOVE_PREVIOUS_QUERY } from '../actions/actionTypes'
 import { iPayload } from '../../types'
 
 const previouslySearchedArray: string[] = []
@@ -10,7 +10,7 @@ const initialState = {
     isInitialSearch: true,
     page: 1,
     orientation: 'landscape', // landscape, portrait, squarish
-    resultsPerPage: 30,
+    resultsPerPage: 30
 }
 
 const searchReducer = (state = initialState, action: iPayload) => {
@@ -26,14 +26,19 @@ const searchReducer = (state = initialState, action: iPayload) => {
                     ? state.previouslySearched
                     : [...state.previouslySearched, searchTerm],
                 isInitialSearch: false,
+                query: action.payload.query
             }
         case RETRIEVE_MORE_PHOTOS:
             return {
                 ...state,
                 images: [...state.images, ...action.payload.images],
                 query: action.payload.query,
-                page: state.page + 1,
+                page: state.page + 1
             }
+        case REMOVE_PREVIOUS_QUERY:
+            console.log(state.previouslySearched)
+
+            return { ...state, previouslySearched: state.previouslySearched.filter(item => item !== action.payload) }
         default:
             return state
     }

@@ -1,3 +1,8 @@
 .form {
     margin: 1rem;
 }
+
+.searchInput {
+    width: 24rem;
+    font-family: 'Poppins';
+}

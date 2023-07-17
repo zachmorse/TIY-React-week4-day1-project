@@ -11,7 +11,7 @@ const List = ({ images, columns }: iList) => {
 
     // sort columns horizontally across columns while still breaking them up into columns
     // this is to ensure that new images are displayed at the bottom of all previous images,
-    // rather than being spread across the columns in non-search order
+    // rather than being spread across the columns in non-search order.
     useEffect(() => {
         let iterator = 0
         const sorted = images.reduce((acc: any, item: object) => {
