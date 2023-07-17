@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Instagram, Twitter, ArrowOutwardSharp } from '@mui/icons-material'
-import { SvgIcon } from '@mui/material'
 import '../styles/List.css'
-import UnsplashIcon from '../assets/UnsplashIcon'
 import Image from './Image'
 
 interface iList {
@@ -12,7 +9,6 @@ interface iList {
 
 const List = ({ images, columns }: iList) => {
     const [sortedColumnsArray, setSortedColumnsArray] = useState([])
-    const [hoveredElement, setHoveredElement] = useState(null)
 
     // sort images horizontally while still breaking them up into columns:
     // this is to ensure that new images are displayed at the bottom of all previous images,
@@ -47,8 +43,8 @@ const List = ({ images, columns }: iList) => {
         <div className='list'>
             {sortedColumnsArray.map((group: any, groupIdx: number) => (
                 <div key={groupIdx} className='masonryColumn'>
-                    {group.map((image: any) => (
-                        <Image image={image} displayName={getDisplayName(image.user)?.username} />
+                    {group.map((image: any, itemIdx: number) => (
+                        <Image key={itemIdx} image={image} displayName={getDisplayName(image.user)?.username} />
                     ))}
                 </div>
             ))}

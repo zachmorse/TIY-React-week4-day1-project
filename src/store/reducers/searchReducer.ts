@@ -20,7 +20,6 @@ const searchReducer = (state = initialState, action: iPayload) => {
             return { ...state, query: action.payload, page: 1 }
         case SEARCH_PHOTOS:
             const { query, totalPages } = action.payload
-            console.log(totalPages)
             return {
                 ...state,
                 images: action.payload.images,

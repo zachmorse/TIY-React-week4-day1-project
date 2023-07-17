@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Instagram, Twitter, ArrowOutwardSharp } from '@mui/icons-material'
+import React, { useState } from 'react'
+import { ArrowOutwardSharp } from '@mui/icons-material'
 import { SvgIcon } from '@mui/material'
 import '../styles/List.css'
 import UnsplashIcon from '../assets/UnsplashIcon'

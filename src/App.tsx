@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from '@mui/material'
 
 import List from './components/List'
 import Form from './components/Form'
+import Header from './components/Header'
 import PreviouslySearched from './components/PreviouslySearched'
 import './styles/App.css'
 
@@ -56,7 +57,7 @@ const App = ({
         <ThemeProvider theme={theme}>
             <div className='App'>
                 <div className='controlsContainer'>
-                    <h1>Unsplash API Portal</h1>
+                    <Header/>
                     <Form query={query} searchPhotos={searchPhotos} updateQuery={updateQuery} />
                     <PreviouslySearched
                         previouslySearched={previouslySearched}
