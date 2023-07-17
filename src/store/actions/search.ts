@@ -20,16 +20,25 @@ export const updateQuery = (query: string) => ({ type: UPDATE_QUERY, payload: qu
 export const searchPhotos = (query: string) => async (dispatch: any) => {
     axios
         .get(buildURL(query))
-        .then(response => dispatch({ type: SEARCH_PHOTOS, payload: { images: response.data.results, query: query } }))
+        .then(response => {
+            dispatch({
+                type: SEARCH_PHOTOS,
+                payload: { images: response.data.results, query: query, totalPages: response.data.total_pages }
+            })
+        })
         .catch(err => console.log(`ERROR: ${err}`))
 }
 
-export const retrieveMorePhotos = (query: string) => async (dispatch: any) => {
+export const retrieveMorePhotos = () => async (dispatch: any) => {
+    const query = store.getState().search['query']
     const incrementPage = true
     axios
         .get(buildURL(query, incrementPage))
         .then(response =>
-            dispatch({ type: RETRIEVE_MORE_PHOTOS, payload: { images: response.data.results, query: query } })
+            dispatch({
+                type: RETRIEVE_MORE_PHOTOS,
+                payload: { images: response.data.results, query: query }
+            })
         )
         .catch(err => console.log(`ERROR: ${err}`))
 }

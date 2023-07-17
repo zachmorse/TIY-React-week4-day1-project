@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from '@mui/material'
 
 import List from './components/List'
 import Form from './components/Form'
+import Header from './components/Header'
 import PreviouslySearched from './components/PreviouslySearched'
 import './styles/App.css'
 
@@ -24,10 +25,11 @@ interface iApp {
     updateQuery: (query: string) => void
     searchPhotos: (query: string) => void
     isInitialSearch: boolean
-    retrieveMorePhotos: (searchTerm: string) => void
+    retrieveMorePhotos: () => void
     removePreviousQuery: (query: string) => void
     updateColumns: (number: number) => void
     columns: number
+    showLoadMoreButton: boolean;
 }
 
 const App = ({
@@ -40,11 +42,11 @@ const App = ({
     retrieveMorePhotos,
     removePreviousQuery,
     updateColumns,
-    columns
+    columns,
+    showLoadMoreButton
 }: iApp): JSX.Element => {
     const singleColumn = useMediaQuery({ query: '(max-width: 800px)' })
     const doubleColumn = useMediaQuery({ query: '(max-width: 1050px)' })
-    
 
     useEffect(() => {
         const columns = singleColumn ? 1 : doubleColumn ? 2 : 3
@@ -55,7 +57,7 @@ const App = ({
         <ThemeProvider theme={theme}>
             <div className='App'>
                 <div className='controlsContainer'>
-                    <h1>Unsplash API Portal</h1>
+                    <Header/>
                     <Form query={query} searchPhotos={searchPhotos} updateQuery={updateQuery} />
                     <PreviouslySearched
                         previouslySearched={previouslySearched}
@@ -68,12 +70,9 @@ const App = ({
                 ) : (
                     <List images={images} columns={columns} />
                 )}
-                {images.length ? (
+                {images.length && showLoadMoreButton ? (
                     <div className='loadMoreContainer'>
-                        <Button
-                            variant='outlined'
-                            onClick={() => retrieveMorePhotos(previouslySearched[previouslySearched.length - 1])}
-                        >
+                        <Button variant='outlined' onClick={() => retrieveMorePhotos()}>
                             Load More
                         </Button>
                     </div>
@@ -88,13 +87,14 @@ const mapStateToProps = (state: any) => ({
     images: state.search.images,
     previouslySearched: state.search.previouslySearched,
     isInitialSearch: state.search.isInitialSearch,
-    columns: state.list.columns
+    columns: state.list.columns,
+    showLoadMoreButton: state.search.totalPages > state.search.page
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
     updateQuery: (queryString: string) => dispatch(updateQuery(queryString)),
     searchPhotos: (query: string) => dispatch(searchPhotos(query)),
-    retrieveMorePhotos: (query: string) => dispatch(retrieveMorePhotos(query)),
+    retrieveMorePhotos: () => dispatch(retrieveMorePhotos()),
     updateColumns: (payload: number) => dispatch(updateColumns(payload)),
     removePreviousQuery: (query: string) => dispatch(removePreviousQuery(query))
 })

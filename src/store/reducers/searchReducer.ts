@@ -10,7 +10,8 @@ const initialState = {
     isInitialSearch: true,
     page: 1,
     orientation: 'landscape', // landscape, portrait, squarish
-    resultsPerPage: 30
+    resultsPerPage: 30,
+    totalPages: 1
 }
 
 const searchReducer = (state = initialState, action: iPayload) => {
@@ -18,15 +19,16 @@ const searchReducer = (state = initialState, action: iPayload) => {
         case UPDATE_QUERY:
             return { ...state, query: action.payload, page: 1 }
         case SEARCH_PHOTOS:
-            const searchTerm = action.payload.query
+            const { query, totalPages } = action.payload
             return {
                 ...state,
                 images: action.payload.images,
-                previouslySearched: state.previouslySearched.includes(searchTerm)
+                previouslySearched: state.previouslySearched.includes(query)
                     ? state.previouslySearched
-                    : [...state.previouslySearched, searchTerm],
+                    : [...state.previouslySearched, query],
                 isInitialSearch: false,
-                query: action.payload.query
+                query: query,
+                totalPages: totalPages
             }
         case RETRIEVE_MORE_PHOTOS:
             return {
@@ -36,8 +38,6 @@ const searchReducer = (state = initialState, action: iPayload) => {
                 page: state.page + 1
             }
         case REMOVE_PREVIOUS_QUERY:
-            console.log(state.previouslySearched)
-
             return { ...state, previouslySearched: state.previouslySearched.filter(item => item !== action.payload) }
         default:
             return state
