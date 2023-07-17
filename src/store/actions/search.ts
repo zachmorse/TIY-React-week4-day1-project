@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '../store'
-import { UPDATE_QUERY, SEARCH_PHOTOS, RETRIEVE_MORE_PHOTOS } from './actionTypes'
+import { UPDATE_QUERY, SEARCH_PHOTOS, RETRIEVE_MORE_PHOTOS, REMOVE_PREVIOUS_QUERY } from './actionTypes'
 
 export const BASE_URL = process.env.REACT_APP_UNSPLASH_BASE_URL
 export const CLIENT_ID = process.env.REACT_APP_UNSPLASH_CLIENT_ID
@@ -33,3 +33,5 @@ export const retrieveMorePhotos = (query: string) => async (dispatch: any) => {
         )
         .catch(err => console.log(`ERROR: ${err}`))
 }
+
+export const removePreviousQuery = (query: string) => ({ type: REMOVE_PREVIOUS_QUERY, payload: query })

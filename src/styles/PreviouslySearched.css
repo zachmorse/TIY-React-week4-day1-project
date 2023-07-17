@@ -1,0 +1,11 @@
+.previouslySearchedContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 4px;
+  flex-wrap: wrap;
+
+  @media (max-width: 800px) {
+    padding: 0rem 2rem;
+}
+}
