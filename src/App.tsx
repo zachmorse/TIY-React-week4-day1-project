@@ -29,7 +29,7 @@ interface iApp {
     removePreviousQuery: (query: string) => void
     updateColumns: (number: number) => void
     columns: number
-    showLoadMoreButton: boolean;
+    showLoadMoreButton: boolean
 }
 
 const App = ({
@@ -57,7 +57,7 @@ const App = ({
         <ThemeProvider theme={theme}>
             <div className='App'>
                 <div className='controlsContainer'>
-                    <Header/>
+                    <Header showSettings />
                     <Form query={query} searchPhotos={searchPhotos} updateQuery={updateQuery} />
                     <PreviouslySearched
                         previouslySearched={previouslySearched}

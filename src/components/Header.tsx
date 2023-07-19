@@ -1,5 +1,5 @@
 import React from 'react'
-import SettingsIcon from '@mui/icons-material/Settings'
+import Settings from './Settings'
 import '../styles/Settings.css'
 
 interface iHeader {
@@ -11,7 +11,7 @@ const Header = ({ showSettings = false }: iHeader) => {
         <div className='headerContainer'>
             {showSettings && <span />}
             <h1>Unsplash API Portal</h1>
-            {showSettings && <SettingsIcon onClick={() => console.log('open settings')} />}
+            {showSettings && <Settings />}
         </div>
     )
 }
